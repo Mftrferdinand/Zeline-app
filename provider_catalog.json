@@ -1,0 +1,462 @@
+{
+  "providers": [
+    {
+      "id": "alicode",
+      "name": "Alibaba",
+      "protocol": "openai",
+      "base_url": "https://coding.dashscope.aliyuncs.com/v1",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "anthropic",
+      "name": "Anthropic",
+      "protocol": "anthropic",
+      "base_url": "https://api.anthropic.com/v1/messages",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "baidu",
+      "name": "Baidu Qianfan",
+      "protocol": "openai",
+      "base_url": "https://qianfan.baidubce.com/v2",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "blackbox",
+      "name": "Blackbox AI",
+      "protocol": "openai",
+      "base_url": "https://api.blackbox.ai/v1",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "deepseek",
+      "name": "DeepSeek",
+      "protocol": "anthropic",
+      "base_url": "https://api.deepseek.com/anthropic/v1/messages",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "featherless",
+      "name": "Featherless",
+      "protocol": "openai",
+      "base_url": "https://api.featherless.ai/v1",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "glm",
+      "name": "Z AI (Glm)",
+      "protocol": "anthropic",
+      "base_url": "https://api.z.ai/api/anthropic/v1/messages",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "groq",
+      "name": "Groq",
+      "protocol": "openai",
+      "base_url": "https://api.groq.com/openai/v1",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "minimax-cn",
+      "name": "Minimax CN",
+      "protocol": "anthropic",
+      "base_url": "https://api.minimaxi.com/anthropic/v1/messages",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "minimax",
+      "name": "Minimax",
+      "protocol": "anthropic",
+      "base_url": "https://api.minimax.io/anthropic/v1/messages",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "nebius",
+      "name": "Nebius AI",
+      "protocol": "openai",
+      "base_url": "https://api.studio.nebius.ai/v1",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "openai",
+      "name": "OpenAI",
+      "protocol": "openai",
+      "base_url": "https://api.openai.com/v1",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "opencode-go",
+      "name": "OpenCode Go",
+      "protocol": "openai",
+      "base_url": "https://opencode.ai/zen/go/v1",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "bazaarlink",
+      "name": "Bazaarlink",
+      "protocol": "openai",
+      "base_url": "https://bazaarlink.ai/api/v1",
+      "auth": [
+        "api_key"
+      ],
+      "category": "freeTier",
+      "group": "free"
+    },
+    {
+      "id": "byteplus",
+      "name": "BytePlus",
+      "protocol": "openai",
+      "base_url": "https://ark.ap-southeast.bytepluses.com/api/coding/v3",
+      "auth": [
+        "api_key"
+      ],
+      "category": "freeTier",
+      "group": "free"
+    },
+    {
+      "id": "claude",
+      "name": "Claude Code",
+      "protocol": "anthropic",
+      "base_url": "https://api.anthropic.com/v1/messages",
+      "auth": [
+        "api_key"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "cline",
+      "name": "Cline",
+      "protocol": "openai",
+      "base_url": "https://api.cline.bot/api/v1",
+      "auth": [
+        "oauth",
+        "api_key"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "clinepass",
+      "name": "ClinePass",
+      "protocol": "openai",
+      "base_url": "https://api.cline.bot/api/v1",
+      "auth": [
+        "oauth",
+        "api_key"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "cloudflare-ai",
+      "name": "Cloudflare",
+      "protocol": "openai",
+      "base_url": "https://api.cloudflare.com/client/v4/accounts/{accountId}/ai/v1",
+      "auth": [
+        "api_key"
+      ],
+      "category": "freeTier",
+      "group": "free"
+    },
+    {
+      "id": "codebuddy-intl",
+      "name": "CodeBuddy",
+      "protocol": "openai",
+      "base_url": "https://www.codebuddy.ai/v2",
+      "auth": [
+        "oauth",
+        "api_key"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "codebuddy-cn",
+      "name": "CodeBuddy CN",
+      "protocol": "openai",
+      "base_url": "https://copilot.tencent.com/v2",
+      "auth": [
+        "oauth",
+        "api_key"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "github",
+      "name": "GitHub Copilot",
+      "protocol": "openai",
+      "base_url": "https://api.githubcopilot.com",
+      "auth": [
+        "api_key"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "gitlab",
+      "name": "GitLab Duo",
+      "protocol": "openai",
+      "base_url": "https://gitlab.com/api/v4",
+      "auth": [
+        "api_key"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "iflow",
+      "name": "iFlow AI",
+      "protocol": "openai",
+      "base_url": "https://apis.iflow.cn/v1",
+      "auth": [
+        "api_key"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "kilocode",
+      "name": "Kilo Code",
+      "protocol": "openai",
+      "base_url": "https://api.kilo.ai/api/openrouter",
+      "auth": [
+        "api_key"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "kilo-gateway",
+      "name": "Kilo",
+      "protocol": "openai",
+      "base_url": "https://api.kilo.ai/api/gateway",
+      "auth": [
+        "api_key"
+      ],
+      "category": "freeTier",
+      "group": "free"
+    },
+    {
+      "id": "kimi",
+      "name": "Kimi",
+      "protocol": "anthropic",
+      "base_url": "https://api.kimi.com/coding/v1/messages",
+      "auth": [
+        "oauth",
+        "api_key"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "nvidia",
+      "name": "NVIDIA NIM",
+      "protocol": "openai",
+      "base_url": "https://integrate.api.nvidia.com/v1",
+      "auth": [
+        "api_key"
+      ],
+      "category": "freeTier",
+      "group": "free"
+    },
+    {
+      "id": "ollama",
+      "name": "Ollama",
+      "protocol": "ollama",
+      "base_url": "https://ollama.com",
+      "auth": [
+        "api_key"
+      ],
+      "category": "freeTier",
+      "group": "free"
+    },
+    {
+      "id": "openrouter",
+      "name": "OpenRouter",
+      "protocol": "openai",
+      "base_url": "https://openrouter.ai/api/v1",
+      "auth": [
+        "api_key"
+      ],
+      "category": "freeTier",
+      "group": "free"
+    },
+    {
+      "id": "poolside",
+      "name": "Poolside",
+      "protocol": "openai",
+      "base_url": "https://inference.poolside.ai/v1",
+      "auth": [
+        "api_key"
+      ],
+      "category": "freeTier",
+      "group": "free"
+    },
+    {
+      "id": "xai",
+      "name": "xAI (Grok)",
+      "protocol": "openai",
+      "base_url": "https://api.x.ai/v1",
+      "auth": [
+        "oauth",
+        "api_key"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "antigravity",
+      "name": "Antigravity",
+      "protocol": "openai",
+      "base_url": "https://cloudcode-pa.googleapis.com/v1internal",
+      "auth": [
+        "oauth"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "gemini-cli",
+      "name": "Gemini CLI",
+      "protocol": "openai",
+      "base_url": "https://cloudcode-pa.googleapis.com/v1internal",
+      "auth": [
+        "oauth"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "kiro",
+      "name": "Kiro AI",
+      "protocol": "openai",
+      "base_url": "https://runtime.us-east-1.kiro.dev/generateAssistantResponse",
+      "auth": [
+        "oauth"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor IDE",
+      "protocol": "openai",
+      "base_url": "https://api2.cursor.sh",
+      "auth": [
+        "oauth"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "qoder",
+      "name": "Qoder",
+      "protocol": "openai",
+      "base_url": "https://api3.qoder.sh/algo/api/v2/service/pro/sse/agent_chat_generation",
+      "auth": [
+        "oauth",
+        "api_key"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    },
+    {
+      "id": "gemini",
+      "name": "Gemini",
+      "protocol": "openai",
+      "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "mistral",
+      "name": "Mistral",
+      "protocol": "openai",
+      "base_url": "https://api.mistral.ai/v1",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "perplexity",
+      "name": "Perplexity",
+      "protocol": "openai",
+      "base_url": "https://api.perplexity.ai",
+      "auth": [
+        "api_key"
+      ],
+      "category": "apikey",
+      "group": "apikey"
+    },
+    {
+      "id": "grok-cli",
+      "name": "xAI (Grok) CLI",
+      "protocol": "openai",
+      "base_url": "https://cli-chat-proxy.grok.com/v1",
+      "auth": [
+        "oauth"
+      ],
+      "category": "oauth",
+      "group": "oauth"
+    }
+  ]
+}

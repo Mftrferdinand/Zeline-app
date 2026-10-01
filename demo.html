@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id" data-app-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Zeline — Demo Runtime</title>
+<link rel="stylesheet" href="style.css?v=803">
+<style>
+  body{background:#000;color:#eee;margin:0;padding:16px 14px 60px;font-family:Inter,system-ui,sans-serif}
+  h1{font-size:20px;margin:4px 0 2px}
+  .sub{color:#8a8a90;font-size:12px;margin-bottom:18px}
+  h2{font-size:14px;margin:26px 0 4px;color:#fff;letter-spacing:.3px}
+  h2 small{display:block;color:#777;font-size:10px;font-weight:400;margin-top:3px;letter-spacing:0}
+  .grid{display:flex;flex-direction:column;gap:3px;margin-top:10px}
+  .row{display:grid;grid-template-columns:18px 1fr;align-items:start;gap:8px;padding:3px 0}
+  .row .ic{width:18px;height:18px;display:grid;place-items:center;align-self:start;height:17px}
+  .row .ic svg{width:18px;height:18px}
+  .row .copy{min-width:0}
+  .row strong{display:inline;font-size:12.5px;font-weight:600;color:#e6e6ea;line-height:1.4}
+  .row .det{color:#8a8a90;font-weight:400}
+  .tone-purple .ic svg{color:#b18cff} .tone-purple strong{color:#b18cff}
+  .tone-blue .ic svg{color:#6ea8ff}   .tone-blue strong{color:#6ea8ff}
+  .tone-orange .ic svg{color:#d88a45} .tone-orange strong{color:#d88a45}
+  .tone-cyan .ic svg{color:#5cc8d7}   .tone-cyan strong{color:#5cc8d7}
+  .tone-green .ic svg{color:#37d67a}  .tone-green strong{color:#37d67a}
+  .tone-yellow .ic svg{color:#f5b83d} .tone-yellow strong{color:#f5b83d}
+  .tone-pink .ic svg{color:#e091d8}   .tone-pink strong{color:#e091d8}
+  .tone-grey .ic svg{color:#9aa0a6}   .tone-grey strong{color:#9aa0a6}
+  .live{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12.5px}
+  .live .lbl{font-weight:600}
+  .badge{display:inline-block;font-size:10px;padding:1px 7px;border-radius:9px;background:#1b1b1e;color:#8a8a90;margin-left:6px}
+  .sec-note{font-size:11px;color:#666;margin-top:2px}
+</style>
+</head>
+<body>
+<h1>Demo Runtime Zeline</h1>
+<div class="sub">Semua dirender pakai kode asli app (<code>zactivity.js</code>, <code>zstatus.js</code>, <code>zicons.js</code>) — bukan gambar.</div>
+
+<h2 id="h88">89 Label Runtime <small>88 kegiatan tool + 1 narasi agent — masing-masing punya icon sendiri</small></h2>
+<div class="grid" id="grid88"></div>
+
+<h2 id="h12">12 Status Agent <small>loading orb + judul saja (tanpa deskripsi)</small></h2>
+<div class="grid" id="grid12"></div>
+
+<h2 id="h44">44 Tool <small>yang beneran terpasang di gateway</small></h2>
+<div class="grid" id="grid44"></div>
+
+<script src="icons.js?v=8"></script>
+<script src="zicons.js?v=10"></script>
+<script src="zactivity.js?v=7"></script>
+<script src="zstatus.js?v=18"></script>
+<script>
+/* ── 88 label: dipanggil lewat zelineActivity dgn contoh argumen nyata ── */
+const SPEC88 = [
+  ['manage_skill',{action:'list'}],['list_memory',{}],['recall_history',{}],['search_files',{}],
+  ['undo_file',{action:'list'}],['undo_file',{action:'diff'}],['process_control',{action:'list'}],
+  ['process_control',{action:'log'}],['code_intel',{action:'diagnostics'}],['code_intel',{action:'definition'}],
+  ['code_intel',{action:'references'}],['code_intel',{action:'hover'}],['code_intel',{action:'symbols'}],
+  ['code_intel',{action:'servers'}],['browser',{action:'text'}],['browser',{action:'links'}],
+  ['git',{action:'status'}],['git',{action:'diff'}],['git',{action:'log'}],['git',{action:'show'}],
+  ['git',{action:'branch'}],['schedule_task',{action:'list'}],['schedule_task',{action:'show'}],
+  ['runtime_info',{}],['system_env',{}],['image',{}],['read_file',{}],
+  ['resolve_lesson',{}],['deep_research',{}],
+  ['execute_code',{}],['run_shell',{}],['run_shell',{background:true}],['browser',{action:'eval'}],
+  ['git',{action:'push'}],['schedule_task',{action:'run'}],['code.started',{}],
+  ['load_skill',{}],['manage_skill',{action:'create'}],['manage_skill',{action:'write_file'}],
+  ['manage_skill',{action:'delete',absorbed_into:'basic'}],['manage_skill',{action:'delete'}],
+  ['manage_skill',{}],['add_memory',{}],['remove_memory',{}],['read_file',{offset:1,limit:500}],
+  ['write_file',{}],['edit_file',{}],['patch_file',{}],['undo_file',{action:'restore'}],
+  ['undo_file',{}],['send_file',{}],['download_file',{}],['update_task',{}],
+  ['process_control',{action:'kill'}],['process_control',{}],['web_search',{}],
+  ['browser',{action:'open'}],['browser',{action:'click'}],['browser',{action:'type'}],
+  ['browser',{action:'screenshot'}],['browser',{action:'close'}],['browser',{}],
+  ['git',{action:'add'}],['git',{action:'commit'}],['schedule_task',{action:'add'}],
+  ['schedule_task',{action:'pause'}],['schedule_task',{action:'resume'}],['schedule_task',{action:'remove'}],
+  ['schedule_task',{}],['http_request',{}],['delegate_task',{}],['network_route',{}],
+  ['generate_image',{}],['analyze_media',{path_or_url:'voice.ogg'}],['analyze_media',{}],
+  ['mcpxy',{}],['mcp__github__search',{}],['file.updated',{}],
+  ['code_intel',{}],['stream.error',{}],['tool.completed',{}],['tool.failed',{}],
+  ['self.improvement',{}],['process_control',{action:'poll'}],['stream.cancelled',{}],
+  ['assistant.delta',{}],['ask_user',{}],['stream.started',{}],['assistant.thinking',{}],['reasoning',{}],
+  /* ── runtime ke-89: NARASI AGENT ──
+     Agent BICARA, bukan lapor status. Format di UI: (icon) Zeline : <kalimat> */
+  ['narration',{}]
+];
+
+const g88 = document.getElementById('grid88');
+const seen88 = new Set();
+SPEC88.forEach(([tool,args])=>{
+  const a = zelineActivity(tool, args);
+  const key = a.label + '|' + a.detail;
+  if (seen88.has(key)) return;
+  seen88.add(key);
+  const row = document.createElement('div');
+  row.className = 'row tone-' + (a.tone||'grey');
+  const hasIcon = (window.ZELINE_TOOL_ICONS||{})[a.icon];
+  const icon = hasIcon ? zelineIconSvg(a.icon) : (window.ZI ? ZI(a.icon) : '');
+  row.innerHTML = '<span class="ic">'+icon+'</span><span class="copy"><strong>'+a.label
+    + (a.detail ? '<span class="det"> : '+a.detail+'</span>' : '') + '</strong></span>';
+  g88.appendChild(row);
+});
+document.getElementById('h88').innerHTML += '<span class="badge">'+seen88.size+' label</span>';
+
+/* ── 12 state: orb + judul saja ── */
+const g12 = document.getElementById('grid12');
+const states = Object.values(RUNTIME_STATES);
+states.forEach(s=>{
+  const n = document.createElement('div');
+  n.className = 'chat-live-inline tone-' + s.tone + (String(s.tone).startsWith('waiting') ? ' is-waiting' : '');
+  n.innerHTML = '<span class="chat-live-orb" aria-hidden="true"><i></i><i></i><i></i></span>'
+    + '<span class="chat-live-text"><b class="chat-live-label">'+s.label+'</b></span>';
+  g12.appendChild(n);
+});
+document.getElementById('h12').innerHTML += '<span class="badge">'+states.length+' state</span>';
+
+/* ── 44 tool: daftar tool aktif ── */
+const TOOLS = ["add_memory","analyze_media","archive","ask_user","audio_transcribe","browser","code_intel","db_query","deep_research","delegate_task","diff","download_file","edit_file","execute_code","generate_image","git","hash","http_request","http_server","image","json_query","list_memory","load_skill","manage_skill","network_route","notify","patch_file","port_check","process_control","read_file","recall_history","remove_memory","resolve_lesson","run_shell","runtime_info","schedule_task","search_files","send_file","system_env","undo_file","update_task","web_fetch","web_search","write_file"];
+const g44 = document.getElementById('grid44');
+TOOLS.sort().forEach(t=>{
+  const ic = zelineToolIcon(t), tn = zelineToolTone(t);
+  const hasIcon = (window.ZELINE_TOOL_ICONS||{})[ic];
+  const svg = hasIcon ? zelineIconSvg(ic) : (window.ZI ? ZI(ic) : '');
+  const row = document.createElement('div');
+  row.className = 'row tone-' + tn;
+  row.innerHTML = '<span class="ic">'+svg+'</span><span class="copy"><strong>'+t
+    + '</strong> <span class="det">'+ic+'</span></span>';
+  g44.appendChild(row);
+});
+document.getElementById('h44').innerHTML += '<span class="badge">'+TOOLS.length+' tool</span>';
+document.title = 'Zeline Demo — ' + seen88.size + ' label / ' + states.length + ' state / ' + TOOLS.length + ' tool';
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+# ── Sampah kerja: file .bak dari iterasi UI ──────────────────────────────
+*.bak-*
+*.bak
+*.tmp
+
+# ── Python ───────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# ── Screenshot QA di root (dihasilkan ulang; bukan bagian app) ───────────
+# Catatan: assets/ BUKAN sampah — 76 file provider logo & logo app dipakai
+# via referensi dinamis di app*.js. Hanya PNG di root yang dibuang.
+/*.png
+
+# ── Skrip & hasil QA lokal (path mesin-spesifik, bukan bagian app) ───────
+shoot.py
+shoot_hub.py
+shoot_real.py
+shot88.py
+send88.py
+diag_*.py
+probe_*.py
+qa_*.py
+qa*.png
+qa/
+verify_*.py
+make_provider_logos.py
+
+# ── Data pribadi: JANGAN pernah masuk repo ───────────────────────────────
+.zeline-workspaces.json
+.zeline-deleted-sessions.json
+.zeline/
+
+# ── Runtime lokal ────────────────────────────────────────────────────────
+*.log
+node_modules/
+
+# ── OS ───────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db

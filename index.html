@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#000000">
+<!-- Native-app hints for Android. `mobile-web-app-capable` lets Chrome run the
+     page standalone (no URL bar) once it is added to the home screen, so it
+     stops presenting itself as a web page. `color-scheme:dark` tells the
+     browser to draw its own UI (scrollbars, form controls, the address bar
+     while loading) dark, which removes the white flashes a light UA would
+     otherwise paint. `maximum-scale=1, user-scalable=no` stops pinch-zoom on
+     double-tap, one of the clearest "this is a web page" tells on a phone. -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="color-scheme" content="dark">
+<meta name="format-detection" content="telephone=no">
+<title>Zeline — AI Agent Workspace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Web fonts load NON-BLOCKING. A plain <link rel=stylesheet> to a
+     cross-origin font host is render-blocking: if that host is slow or
+     unreachable (offline, captive portal, restricted network) the browser
+     holds back execution of every <script> that follows, so the whole app
+     stays blank and `go` is never defined. Loading it as a print stylesheet
+     and swapping media on load keeps the fonts when the network is up while
+     never blocking first paint or script execution when it is not. -->
+<link rel="stylesheet" media="print" onload="this.media='all'"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<noscript><link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
+<link rel="stylesheet" href="style.css?v=3007">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A84FF'/><path d='M9 10h14L11 22h12' stroke='white' stroke-width='2.4' fill='none' stroke-linecap='round'/></svg>">
+</head>
+<body>
+
+<section class="onboarding" id="onboarding" aria-labelledby="onboardingTitle" hidden>
+  <div class="onboarding-panel">
+    <div class="onboarding-brand"><span class="brand-mark"><svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><path d="M9 10h14L11 22h12" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Zeline</span></div>
+    <div class="onboarding-copy"><h1 id="onboardingTitle">Welcome to Zeline</h1><p id="onboardingDescription">Chat with your agents from anywhere. Connect your account and sync your Zeline runtimes.</p></div>
+    <div class="auth-options" id="authOptions">
+      <button class="auth-button google" data-auth="google"><span class="auth-logo">G</span><span>Continue with Google</span></button>
+      <button class="auth-button github" data-auth="github"><span class="auth-logo" data-zi="github"></span><span>Continue with GitHub</span></button>
+      <button class="auth-button connect-runtime" data-auth="agent"><span class="auth-logo" data-zi="agentchip"></span><span>Connect with access token</span></button>
+    </div>
+    <form class="profile-form connect-form" id="connectForm" hidden>
+      <label>Gateway URL<input id="connectUrl" type="text" inputmode="url" autocomplete="off" placeholder="localhost:8082" value="localhost:8082"></label>
+      <label>Access token<input id="connectToken" type="password" autocomplete="off" spellcheck="false" placeholder="Paste runtime access token" required></label>
+      <button class="auth-button profile-submit" type="submit">Connect to runtime</button>
+      <button class="connect-back" id="connectBack" type="button">Back</button>
+    </form>
+    <form class="profile-form" id="profileForm" hidden>
+      <label>What should your agent call you?<input id="profileName" type="text" autocomplete="name" placeholder="Your name" required></label>
+      <label>Preferred language<select id="profileLanguage"><option>English</option><option>Bahasa Indonesia</option></select></label>
+      <button class="auth-button profile-submit" type="submit">Continue to Zeline</button>
+    </form>
+    <p class="onboarding-note">Your provider keys stay on your connected Zeline runtime.</p>
+  </div>
+</section>
+
+<div id="app" class="app">
+
+  <!-- ══════════════════════════════ SIDEBAR ══════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 32 32" width="20" height="20" aria-hidden="true">
+          <path d="M9 10h14L11 22h12" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">Zeline</span>
+        <span class="brand-sub">Agent Workspace</span>
+      </div>
+      <button class="sidebar-close" id="sidebarClose" aria-label="Tutup menu"><span class="zi-slot" data-zi="close"></span></button>
+    </div>
+
+    <nav class="nav" id="nav" role="tablist" aria-label="Main navigation">
+      <button class="nav-item active" data-page="chat" role="tab"><span class="nav-symbol" data-zi="windowsgrid"></span><span>Agents</span></button>
+      <button class="nav-item" data-page="providers" role="tab"><span class="nav-symbol" data-zi="providerlink"></span><span>Providers</span></button>
+      <button class="nav-item" data-page="usage" role="tab"><span class="nav-symbol" data-zi="usage"></span><span>Usage</span></button>
+
+    </nav>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Sesi terbaru</div>
+      <div class="recent-list" id="recentList"></div>
+    </div>
+
+  </aside>
+
+  <div class="scrim" id="scrim"></div>
+
+  <!-- ══════════════════════════════ MAIN ══════════════════════════════ -->
+  <main class="main">
+
+    <header class="topbar">
+      <button class="icon-btn only-mobile" id="menuBtn" aria-label="Buka menu"><span class="zi-slot" data-zi="menu"></span></button>
+      <div class="topbar-title">
+        <h1 id="pageTitle">Chat</h1>
+        <p id="pageSub">Streaming realtime dari agent runtime</p>
+      </div>
+      <div class="topbar-actions" id="topbarActions"></div>
+    </header>
+
+    <div class="page-track" id="pageTrack">
+
+
+      <!-- ─────────────── CHAT ─────────────── -->
+    <section class="page active" id="page-chat">
+      <div class="chat-home" id="chatHome">
+        <div class="telegram-head zeline-home-head">
+          <div class="home-header-left">
+            <button class="home-header-action home-drawer-btn" id="homeHeaderMenu" aria-label="Open menu" aria-expanded="false"><span class="home-menu-glyph" aria-hidden="true"><i></i><i></i><i></i></span></button>
+          </div>
+          <h2 id="homeTitle" hidden>Zeline</h2>
+
+          <div class="home-head-actions">
+            <div class="agent-home-actions" id="agentHomeActions" hidden></div>
+          </div>
+        </div>
+        <div class="home-hub" id="homeHub">
+          <div class="hub-hero" id="hubHero"></div>
+          <div class="hub-chat" id="hubChat"></div>
+          <div class="hub-composer" id="hubComposer"></div>
+          <div class="hub-grid" id="hubGrid"></div>
+          <div class="hub-top" id="hubTop"></div>
+          <div class="hub-models" id="hubModels"></div>
+          <div class="hub-trio" id="hubTrio"></div>
+        </div>
+        <div class="home-rooms" id="homeRooms" hidden>
+          <button class="rooms-back" id="roomsBack" type="button"><span class="zi-slot" data-zi="chevleft"></span> Home</button>
+          <div class="dash-agents-head"><strong>Chats</strong><button class="create-agent-top" id="createAgentTop" type="button" aria-label="New chat"><span class="add-plus">+</span> New chat</button></div>
+          <div class="agent-list" id="agentList"></div>
+        </div>
+        <div class="global-search-tabs" id="globalSearchTabs" hidden>
+          <button class="gs-tab active" data-scope="agents" type="button">Agents</button>
+          <button class="gs-tab" data-scope="chats" type="button">Chats</button>
+          <button class="gs-tab" data-scope="files" type="button">Files</button>
+          <button class="gs-tab" data-scope="links" type="button">Links</button>
+        </div>
+        <div class="global-search-results" id="globalSearchResults" hidden></div>
+      </div>
+      <div class="chat-detail" id="chatDetail" hidden>
+        <div class="telegram-chat-head"><button class="room-head-back back-chat" id="backToChats" aria-label="Back"><span class="zi-slot" data-zi="chevleft"></span></button><div class="live-status" id="liveStatus" hidden aria-live="polite"><span class="live-status-orb" aria-hidden="true"><i></i><i></i><i></i></span><span class="live-status-text"><b id="liveStatusLabel">Thinking</b><span id="liveStatusMeta"></span></span><span class="live-status-timer" id="liveStatusTimer"></span><button class="live-status-stop" id="liveStatusStop" type="button" aria-label="Stop"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" focusable="false"><rect x="7" y="7" width="10" height="10" rx="2" fill="currentColor"/></svg></button></div><button class="room-model-chip" id="roomModelChip" type="button" aria-label="Change model" hidden><span class="room-model-chip-logo" id="roomModelChipLogo"></span><span class="room-model-chip-name" id="roomModelChipName">Model</span><span class="room-model-chip-caret" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" focusable="false"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><button class="room-head-menu" id="roomMenuBtn" type="button" aria-label="Room menu"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="5" r="1.7" fill="currentColor"/><circle cx="12" cy="12" r="1.7" fill="currentColor"/><circle cx="12" cy="19" r="1.7" fill="currentColor"/></svg></button><div class="room-menu-popover" id="roomMenuPopover" hidden></div></div>
+        <div class="chat-shell">
+          <div class="stream" id="stream" aria-live="polite"></div>
+          <div class="composer-zone"><div class="attach-tray" id="attachTray" hidden></div><div class="composer" id="composer"><button class="composer-model" id="composerModelBtn" type="button" aria-label="Change model"><span class="composer-model-logo" id="composerModelLogo"></span></button><input type="file" id="fileInput" multiple hidden accept="image/*,text/*,.pdf,.md,.py,.js,.json,.csv"><textarea id="input" rows="1" placeholder="Message"></textarea><button class="icon-btn attach" id="attachBtn" aria-label="Add attachment"><span class="zi-slot" data-zi="comp_add"></span></button><button class="send" id="sendBtn" aria-label="Send"><span class="zi-slot" data-zi="comp_mic"></span></button><button class="send stop" id="stopBtn" aria-label="Stop" hidden><span class="stop-sq"></span></button></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────── PROVIDERS ─────────────── -->
+    <section class="page" id="page-providers">
+      <div class="pv-appbar" id="pvAppbar">
+        <button class="pv-appbar-back" data-back-home type="button" aria-label="Back to Home"><span class="zi-slot" data-zi="chevleft"></span></button>
+        <h2 class="pv-appbar-title" id="pvTitle">Providers</h2>
+        <div class="pv-appbar-actions">
+          <button class="pv-search-action" id="pvSearchAction" type="button" aria-label="Search Provider" aria-expanded="false"></button>
+        </div>
+        <label class="pv-appbar-search" id="pvSearchWrap" hidden>
+          <span class="zi-slot" data-zi="search" aria-hidden="true"></span>
+          <input id="pvSearchInput" type="search" autocomplete="off" spellcheck="false" placeholder="Search Provider" aria-label="Search Provider">
+        </label>
+      </div>
+      <div class="page-body provider-page" id="pvSheet">
+        <div class="pv-scroll" id="providerGrid"></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-usage">
+      <div class="usage-page">
+        <button class="page-back" data-back-home type="button" aria-label="Back to Home"><span class="zi-slot" data-zi="chevleft"></span> Home</button>
+        <div class="usage-router-head"><div><small>ROUTER OVERVIEW</small><h2>Usage</h2></div><span class="usage-period">This month</span></div>
+        <div class="usage-router-grid">
+          <article class="usage-router-card primary"><span>Total spend</span><strong id="usageSpend">$0.00</strong><small>Across connected providers</small></article>
+          <article class="usage-router-card"><span>Requests</span><strong id="usageRequests">0</strong><small>Successful routed calls</small></article>
+          <article class="usage-router-card"><span>Total tokens</span><strong id="usageTokens">0</strong><small>Input + output</small></article>
+          <article class="usage-router-card"><span>Cache saved</span><strong id="usageCached">0</strong><small>Cached input tokens</small></article>
+        </div>
+        <section class="usage-router-section"><div class="usage-router-section-head"><strong>Provider breakdown</strong><span>Share of requests</span></div><div id="usageProviderBreakdown" class="usage-provider-breakdown"></div></section>
+        <section class="usage-router-section"><div class="usage-router-section-head"><strong>Activity</strong><span>Last 7 days</span></div><div class="usage-chart"><div class="chart-bars" id="usageBars"></div></div></section>
+      </div>
+    </section>
+
+    <section class="page" id="page-settings">
+      <div class="settings-page">
+        <button class="page-back" data-back-home type="button" aria-label="Back to Home"><span class="zi-slot" data-zi="chevleft"></span> Home</button>
+        <div class="settings-section-label">System</div>
+        <div class="settings-list">
+          <button class="settings-row" id="zelineAppSetup" type="button"><span class="settings-icon" data-zi="agentchip"></span><span><strong>Gateway Setup</strong><small>Gateway and Agent Tokens</small></span><span class="settings-chevron" data-zi="chevron"></span></button>
+          <button class="settings-row" id="pingApi"><span class="settings-icon" data-zi="ping"></span><span><strong>Connection status</strong><small id="diagInfo">Ping Zeline gateway</small></span><span class="settings-chevron" data-zi="chevron"></span></button>
+        </div>
+      </div>
+    </section>
+
+    </div>
+
+  </main>
+
+  <nav class="tabbar" id="tabbar" aria-label="Primary navigation" hidden>
+    <button class="tab active" data-page="chat" aria-label="Agents" aria-selected="true"><span class="tab-icon" data-zi="windowsgrid"></span><span>Agents</span></button>
+    <button class="tab" data-page="providers" aria-label="Providers" aria-selected="false" tabindex="-1"><span class="tab-icon" data-zi="providerlink"></span><span>Providers</span></button>
+    <button class="tab" data-page="usage" aria-label="Usage" aria-selected="false" tabindex="-1"><span class="tab-icon" data-zi="usage"></span><span>Usage</span></button>
+  </nav>
+</div>
+
+<!-- modal -->
+<div class="modal-root" id="modalRoot" hidden>
+  <div class="modal-scrim" data-close></div>
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <h3 id="modalTitle">Judul</h3>
+      <button class="modal-back" data-close aria-label="Back"><span class="zi-slot" data-zi="chevleft"></span></button>
+      <div class="modal-head-actions" aria-label="Workspace actions">
+        <button class="modal-search-action" id="modalSearchAction" type="button" hidden aria-label="Search"></button>
+        <button class="modal-head-action" id="modalHeadAction" type="button" hidden></button>
+      </div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot" id="modalFoot"></div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script src="icons.js?v=8"></script>
+    <script src="zicons.js?v=20"></script>
+    <script src="zactivity.js?v=20"></script>
+    <script src="zstatus.js?v=20"></script>
+<script src="app1.js?v=3007"></script>
+<script src="app2.js?v=3007"></script>
+<script src="app3.js?v=506"></script>
+<script src="app4.js?v=490"></script>
+<script src="app5.js?v=451"></script>
+</body>
+</html>
